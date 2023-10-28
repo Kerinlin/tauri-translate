@@ -1,12 +1,11 @@
-import { resolve } from "node:path";
 import { defineConfig } from "vite";
 import Vue from "@vitejs/plugin-vue";
 import UnoCSS from "unocss/vite";
-
+import path from "path";
 export default defineConfig({
   resolve: {
     alias: {
-      "@": resolve(__dirname, "./src"),
+      "@": path.resolve(__dirname, "./src"),
     },
   },
   plugins: [Vue(), UnoCSS()],

@@ -17,6 +17,7 @@ export default defineConfig({
   shortcuts: {
     "init-btn": "border-none cursor-pointer outline-none",
     "space-between": "flex flex-row justify-between items-center",
+    "center-item": "flex flex-row justify-center items-center",
     "flex-start": "flex flex-row justify-start items-center",
   },
 });

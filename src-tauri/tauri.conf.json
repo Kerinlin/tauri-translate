@@ -48,12 +48,30 @@
         "unmaximize": true,
         "unminimize": true,
         "startDragging": true
+      },
+      "fs": {
+        "all": true,
+        "scope": ["**", "**/*", "/**/*"],
+        "readFile": true,
+        "writeFile": true,
+        "readDir": true,
+        "copyFile": true,
+        "createDir": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "exists": true
+      },
+      "http": {
+        "all": true,
+        "scope": ["https://fanyi-api.baidu.com/*"],
+        "request": true
       }
     },
     "windows": [
       {
-        "width": 666,
-        "height": 370,
+        "width": 568,
+        "height": 379,
         "resizable": true,
         "fullscreen": false,
         "decorations": false
