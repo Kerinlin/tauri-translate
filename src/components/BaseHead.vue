@@ -72,7 +72,9 @@ const onMenuClick = (type) => {
     close: () => {
       appWindow.close();
     },
-    min: () => {},
+    min: () => {
+      appWindow.minimize();
+    },
     settings: () => {
       configInstance.value.openModal();
     },

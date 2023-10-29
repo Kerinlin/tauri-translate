@@ -1,6 +1,6 @@
 {
   "package": {
-    "productName": "tauri-template",
+    "productName": "文件翻译",
     "version": "1.0.0"
   },
   "build": {

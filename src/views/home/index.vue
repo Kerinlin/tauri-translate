@@ -39,29 +39,32 @@ const startTrans = async () => {
     getStorageConfig();
     loading.value = true;
     if (currentConfig.value?.type == "dir") {
+      console.log("翻译文件夹", firstLevelDirList.value);
       const transResult = await translate(
         currentServiceInfo.value,
         firstLevelDirList.value
       );
       transResult.map(async (item) => {
-        let oldFile = await join(item.dir, `${item.fileName}`);
-        let newFile = await join(item.dir, `${item.transResult}`);
-        console.log(oldFile, newFile);
-        await renameFile(oldFile, newFile);
+        if (item.transResult) {
+          let oldFile = await join(item.dir, `${item.fileName}`);
+          let newFile = await join(item.dir, `${item.transResult}`);
+          // console.log(oldFile, newFile);
+          await renameFile(oldFile, newFile);
+        }
       });
-      message.success("翻译完成");
     } else {
+      console.log("翻译文件", fileList.value);
       const transResult = await translate(
         currentServiceInfo.value,
         fileList.value
       );
       transResult.map(async (item) => {
-        let oldFile = await join(item.dir, `${item.fileName}${item.ext}`);
-        let newFile = await join(item.dir, `${item.transResult}${item.ext}`);
-        console.log(oldFile, newFile);
-        await renameFile(oldFile, newFile);
+        if (item.transResult) {
+          let oldFile = await join(item.dir, `${item.fileName}${item.ext}`);
+          let newFile = await join(item.dir, `${item.transResult}${item.ext}`);
+          await renameFile(oldFile, newFile);
+        }
       });
-      message.success("翻译完成");
     }
   } catch (error) {
     console.log("startTrans ~ error:", error);
