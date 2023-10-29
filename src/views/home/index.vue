@@ -21,7 +21,8 @@ import { useTranslate } from "@/hooks/useTranslate";
 import { join } from "@tauri-apps/api/path";
 import { renameFile } from "@tauri-apps/api/fs";
 const message = useMessage();
-const { dropedFilePath, fileList, firstLevelDirList } = useFile();
+const { dropedFilePath, fileList, firstLevelDirList, handleNewFileName } =
+  useFile();
 const { translate } = useTranslate();
 const {
   setDefaultConfig,
@@ -46,10 +47,13 @@ const startTrans = async () => {
       );
       transResult.map(async (item) => {
         if (item.transResult) {
-          let oldFile = await join(item.dir, `${item.fileName}`);
-          let newFile = await join(item.dir, `${item.transResult}`);
-          // console.log(oldFile, newFile);
-          await renameFile(oldFile, newFile);
+          let transItem = {
+            type: "dir",
+            ...item,
+          };
+          let oldFilePath = await join(item.dir, `${item.originName}`);
+          const newFilePath = await handleNewFileName(transItem);
+          await renameFile(oldFilePath, newFilePath);
         }
       });
     } else {
@@ -60,9 +64,16 @@ const startTrans = async () => {
       );
       transResult.map(async (item) => {
         if (item.transResult) {
-          let oldFile = await join(item.dir, `${item.fileName}${item.ext}`);
-          let newFile = await join(item.dir, `${item.transResult}${item.ext}`);
-          await renameFile(oldFile, newFile);
+          let transItem = {
+            type: "file",
+            ...item,
+          };
+          let oldFilePath = await join(
+            item.dir,
+            `${item.originName}${item.ext}`
+          );
+          const newFilePath = await handleNewFileName(transItem);
+          await renameFile(oldFilePath, newFilePath);
         }
       });
     }

@@ -154,5 +154,8 @@ defineExpose({
     ) {
     width: 250px;
   }
+  &:deep(.n-virtual-list) {
+    max-height: 120px !important;
+  }
 }
 </style>
